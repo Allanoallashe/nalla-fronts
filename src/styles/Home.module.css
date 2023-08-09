@@ -1,8 +1,9 @@
 
 .header{
   background-image: linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+  /* background-color: #3c00ab; */
   display: flex;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
   left: 0;
@@ -81,4 +82,79 @@
 }
 .buttonCont button:hover{
   color: #FFF7FF;
+}
+
+
+
+/* cart section */
+.cartproducts{
+  background-image: linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+  padding: 14px;
+  border-radius: 6px;
+  color: #ffffe5;
+  gap: 30px;
+  display: flex;
+}
+.cartproducts h4 button{
+  background-color: #F9F871;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 24px;
+  font-weight: bold;
+  width: 32px;
+}
+.cartproducts h4{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.cartCardBox{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.orderInfo{
+  background-image: linear-gradient(to right top, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+  padding: 20px;
+  color: #ffffe5;
+  font-weight: bold;
+  border-radius: 6px;
+}
+.orderInfo form{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.orderInfo form div{
+  display: flex;
+  gap: 10px;
+}
+.orderInfo form input{
+  border: none;
+  font-weight: bold;
+  height: 36px;
+  outline: none;
+  padding-left: 10px;
+  border-radius: 4px;
+}
+.orderInfo button{
+  background-color: #F9F871;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  height: 36px;
+  font-weight: bold;
+  transition: all ease-in-out 0.25s;
+  width: 50%;
+  margin: auto;
+}
+.orderInfo button:hover{
+  transform: scale(1.045);
+}
+.orderInfo input:focus{
+  outline: solid 2px #c0c000;
 }
