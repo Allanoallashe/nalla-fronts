@@ -34,10 +34,11 @@ export default function CartPage() {
   const [postCode,setPostCode] = useState('')
   const [streetAddress,setStreetAddress] = useState('')
   const [country, setCountry] = useState('')
+  const [successful, setSuccessful] = useState(false)
   
 
 
-  const { cartProducts } = useContext(CartContext)
+  const { cartProducts,clearCart,} = useContext(CartContext)
   const[ products,setProducts] = useState([])
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -49,6 +50,15 @@ export default function CartPage() {
         setProducts([])
       }
   }, [cartProducts])
+
+ 
+  useEffect(() => {
+    if (window.location.href.includes('success')) {
+    setProducts([])
+    setSuccessful(true)
+    clearCart()
+  }
+  },[])
   
   let total = 0
 
@@ -66,11 +76,12 @@ export default function CartPage() {
       window.location = res.data.url
     }
   }
-  if (window.location.href.includes('success')) {
+ 
+  if (successful) {
     return (
       <>
         <Header />
-        <div style={{marginTop:'80px',textAlign:'center'}}>
+        <div style={{ marginTop: '80px', textAlign: 'center' }}>
           <h2>Successful Payments</h2>
           <h4>Check your email in two days time</h4>
         </div>

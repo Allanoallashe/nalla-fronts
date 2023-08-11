@@ -1,7 +1,6 @@
 
 .header{
   background-image: linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
-  /* background-color: #3c00ab; */
   display: flex;
   position: fixed;
   top: 0;
@@ -169,4 +168,19 @@
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color:transparent;
   background-size: 10%;
+}
+
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+.singleProduct{
+  background-image: linear-gradient(to right top, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+  padding: 10px 20px;
+  border-radius: 6px;
+  height: max-content;
+}
+.singlesBox{
+  font-family: 'Indie Flower', cursive;
+}
+.singleProduct img{
+  border-radius: 4px;
 }
