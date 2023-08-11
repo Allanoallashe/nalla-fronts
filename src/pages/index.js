@@ -16,14 +16,14 @@ const Home = ({ featuredProduct, newProducts }) => {
 }
 
   export async function getServerSideProps(){
+    await mongooseConnection()
     const featuredProductId = '64b06d6f34a44712c93304f0'
     const newProducts = await Product.find({}, null, { sort: { '_id': -1 }, limit: 10 })
-    await mongooseConnection()
     const featuredProduct = await Product.findById(featuredProductId)
     return {
       props: {
-        featuredProduct: JSON.parse(JSON.stringify(featuredProduct)),
-        newProducts: JSON.parse(JSON.stringify(newProducts)),
+        featuredProduct: await JSON.parse(JSON.stringify(featuredProduct)),
+        newProducts: await JSON.parse(JSON.stringify(newProducts)),
       }
     }
   }

@@ -7,7 +7,8 @@ import CartCard from "@/components/cartCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 
-  const heading = {
+
+const heading = {
   backgroundImage: 'linear-gradient(to right top, #f5f4eb, #f1f3c3, #e4f39d, #cef578, #aff752, #a8f841, #a1fa2c, #99fb00, #b3fb00, #cbfb00, #e1fb00, #f6fa02)',
   webkitBackgroundClip: 'text',
   mozBackgroundClip: 'text',
@@ -16,9 +17,25 @@ import { faTag } from "@fortawesome/free-solid-svg-icons";
   backgroundSize: '10%',
   textAlign: 'center',
   textTransform:'uppercase',
-  }
+}
+const horizontal = {
+        width: '80%',
+        margin: 'auto',
+        marginTop: '20px',
+        borderWidth: '2px',
+        borderRadius:'10px',
+        borderImage:'linear-gradient(to right, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa)20',
+}
 
 export default function CartPage() {
+  const [name,setName] = useState('')
+  const [email,setEmail] = useState('')
+  const [city,setCity] = useState('')
+  const [postCode,setPostCode] = useState('')
+  const [streetAddress,setStreetAddress] = useState('')
+  const [country, setCountry] = useState('')
+  
+
 
   const { cartProducts } = useContext(CartContext)
   const[ products,setProducts] = useState([])
@@ -28,6 +45,9 @@ export default function CartPage() {
         setProducts(response.data)
       })
     }
+    else {
+        setProducts([])
+      }
   }, [cartProducts])
   
   let total = 0
@@ -36,13 +56,34 @@ export default function CartPage() {
     const price = products.find(p => p._id === productId)?.price || 0
     total += price;
   }
+  const goToPayment = async (ev) => {
+    ev.preventDefault();
+    const res = await axios.post('/api/checkout', {
+      name, email, city, postCode, streetAddress, country,
+      cartProducts,
+    })
+    if (res.data.url) {
+      window.location = res.data.url
+    }
+  }
+  if (window.location.href.includes('success')) {
+    return (
+      <>
+        <Header />
+        <div style={{marginTop:'80px',textAlign:'center'}}>
+          <h2>Successful Payments</h2>
+          <h4>Check your email in two days time</h4>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <Header />
-        <h3 style={{textAlign:'center'}}>Cart</h3>
+      <h3 className={styles.h3Cart}>Cart</h3>
       {!cartProducts?.length && (
-        <h3 style={{textAlign:'center'}}>Your cart is Empty</h3>
+        <h3 className={styles.h3Cart}style={{margin:0,marginBottom:16,}}>Your cart is Empty!</h3>
       )}
 
 
@@ -65,39 +106,40 @@ export default function CartPage() {
               <h3
                 style={heading}
               >Order informations</h3>
-              <form>
-                <input type="text" placeholder="NAME" />
-                <input type="email" placeholder="Email" />
+              <form onSubmit={goToPayment}>
+                <input
+                  value={name}
+                  name="name"
+                  type="text"
+                  placeholder="NAME"
+                  onChange={(ev) => {
+                    setName(ev.target.value)
+                  }}
+                />
+                <input onChange={(ev)=>{setEmail(ev.target.value)}} value={email} name="email" type="email" placeholder="Email" />
                 <div>
-                  <input type="text" placeholder="City" />
-                  <input type="text" placeholder="Postal Code" />
+                  <input onChange={(ev)=>{setCity(ev.target.value)}} value={city} name="city" type="text" placeholder="City" />
+                  <input onChange={(ev)=>{setPostCode(ev.target.value)}} value={postCode} name="postCode" type="text" placeholder="Postal Code" />
                 </div>
-                <input type="text" placeholder="Street Address" />
-                <input type="text" placeholder="Country" />
+                <input onChange={(ev)=>{setStreetAddress(ev.target.value)}} name="streetAddress" value={streetAddress} type="text" placeholder="Street Address" />
+                <input name="country" onChange={(ev) => { setCountry(ev.target.value) }} value={country} type="text" placeholder="Country" />
                 <button type="submit">Proceed to Payment</button>
               </form>
             </>
           )}
         </div>
       </div>
-      <hr style={{
-        width: '80%',
-        margin: 'auto',
-        marginTop: '10px',
-        borderWidth: '2px',
-        borderRadius:'10px',
-        borderImage:'linear-gradient(to right, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa)20',
-      }}></hr>
+      <hr style={horizontal}></hr>
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundImage: 'linear-gradient(to right, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa)',
-          webkitBackgroundClip: 'text',
-          mozBackgroundClip: 'text',
-          webkitTextFillColor: 'transparent',
-          mozTextFillColor:'transparent',
+          WebkitBackgroundClip: 'text',
+          MozBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          MozTextFillColor:'transparent',
           backgroundSize: '20px',
         }}
       >

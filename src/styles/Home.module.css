@@ -14,6 +14,7 @@
   height: 36px;
   border-bottom: dotted 1px #b200ef;
 }
+
 .header nav{
   padding: 6px;
   display: flex;
@@ -137,6 +138,8 @@
   border: none;
   font-weight: bold;
   height: 36px;
+  color: #2d0080;
+  font-size: 15px;
   outline: none;
   padding-left: 10px;
   border-radius: 4px;
@@ -156,5 +159,14 @@
   transform: scale(1.045);
 }
 .orderInfo input:focus{
-  outline: solid 2px #c0c000;
+  outline: solid 2px #02fc02;
+}
+.h3Cart{
+  text-align: center;
+  margin-top: 80px;
+  background-image: linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color:transparent;
+  background-size: 10%;
 }
