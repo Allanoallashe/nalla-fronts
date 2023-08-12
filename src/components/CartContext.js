@@ -26,7 +26,7 @@ export function CartContextProvider({ children }) {
   const addProduct = (productId) => {
     setCartProducts(prev => [...prev, productId])
    
-    toast.success('Item Added Successfully!',{duration:1500,style:{color:'green',}})
+    setTimeout(() => { toast.success('Item Added Successfully!', { duration: 1500, style: { color: 'green', } }) },2000)
   
   }
   const removeProduct = (productId) => { 

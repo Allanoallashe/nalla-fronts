@@ -27,20 +27,22 @@ const ProductBox = ({ _id, title, description, price, images }) => {
 
     itemCopy.style.opacity = 0.85
     itemCopy.style.zIndex = 1000
+    itemCopy.style.height = '230px'
     itemCopy.style.borderRadius = '10px'
     itemCopy.style.backdropFilter = 'blur(5px)'
     document.body.appendChild(itemCopy);
-    const targetX = window.innerWidth - item.offsetWidth + 30
+    const targetX = window.innerWidth - item.offsetWidth + 65
     const targetY = -70
     setIsAnimated(true)
       anime({
         targets: itemCopy,
         translateX: targetX - boundingRect.left,
-        translateY: targetY - boundingRect.top -50,
+        translateY: targetY - boundingRect.top -15,
         opacity: 0.5,
         borderRadius: '20px',
         scale: 0.25,
-        duration: 2000,
+        duration: 600,
+        rotate:'2turn',
         easing: 'easeOutQuad',
         complete: () => {
           setTimeout(() => {
@@ -49,7 +51,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
               opacity: 0,
               duration: 500,
               scale: 0.1,
-              rotate:'1turn',
+              rotate:'5turn',
               borderRadius:'50%',
               easing: 'easeOutQuad',
               complete: () => {
@@ -57,7 +59,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
                 setIsAnimated(false)
               },
             })
-          },1000)
+          },800)
         },
       })
     
@@ -65,15 +67,21 @@ const ProductBox = ({ _id, title, description, price, images }) => {
   
   return (
     <div className={styles.productBox}>
-      <div style={{position:'relative',}}>
-        <Link href={url}>
-        <img src={images[0]} alt='' />
+      <div style={{ position: 'relative', }}>
+        <Link style={{ position: 'relative', }} href={url}>
+          
+          {isAnimated && (<img style={{ position: 'absolute',}} ref={copyRef} src={images[0]} alt='' />)}
+          
+        <img  ref={itemRef} src={images[0]} alt='' />
         </Link>
       </div>
       <p style={{margin:0}}>{title}</p>
       <p style={{margin:0}}><FontAwesomeIcon icon={faTag} rotation={90} /> {price} Ksh</p>
       <div className={styles.buttonCont}>
-        <button onClick={()=>addProduct(_id)}><span>Add to Cart <FontAwesomeIcon icon={faCartPlus}/></span></button>
+        <button onClick={() => {
+          addProduct(_id)
+          flyProduct()
+        }}><span>Add to Cart <FontAwesomeIcon icon={faCartPlus} /></span></button>
       </div>
     </div>
   )
