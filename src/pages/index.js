@@ -3,12 +3,14 @@ import Header from "@/components/Header"
 import { mongooseConnection } from "../../lib/mongoose"
 import { Product } from "../../models/Product"
 import NewProducts from "@/components/NewProducts"
+import { Toaster } from "react-hot-toast"
 
  
 const Home = ({ featuredProduct, newProducts }) => {
   return (
     <div>
       <Header />
+      <Toaster/>
       <Featured featuredProduct={featuredProduct} />
       <NewProducts newProducts= {newProducts} />
      </div>

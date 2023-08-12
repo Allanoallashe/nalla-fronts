@@ -1,19 +1,18 @@
 import styles from '@/styles/Home.module.css'
-import { useState } from 'react'
+import { faCartPlus, faTag } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useContext, useState } from 'react'
+import { CartContext } from './CartContext'
  
   const heading = {
-  backgroundImage: 'linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa)',
-  WebkitBackgroundClip: 'text',
-  MozBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  MozTextFillColor:'transparent',
-  backgroundSize: '10%',
+  color:'#fa9702',
   textAlign: 'justify',
 }
 
 const SingleProduct = ({ product }) => {
   
   const [activeImage, setActiveImage] = useState(product?.images[0])
+  const {addProduct} = useContext(CartContext)
 
   const images = product.images
  
@@ -32,7 +31,7 @@ const SingleProduct = ({ product }) => {
         }}
       >
         <div className={styles.singleProduct}>
-          <div className={styles.imageCont}>
+          <div>
             <img height={300} src={activeImage} alt='singles' />
           </div>
 
@@ -45,8 +44,9 @@ const SingleProduct = ({ product }) => {
               {
                 images.map(image=>(
                 <img
+                  key={image._id}
                   src={image}
-                  height={50}
+                  height={60}
                   onClick={() => {
                   setActiveImage(image)
                   }}
@@ -58,7 +58,23 @@ const SingleProduct = ({ product }) => {
           <div className={styles.descriptions}>
             <h2 style={heading}>{ product.title }</h2>
             <h4 >{product.description}</h4>
+            <div
+              style={{
+                display: 'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                gap:30,
+                color:'#fa9702',
+                whiteSpace:'nowrap',
+              }}
+            >
+            <h3> <FontAwesomeIcon icon={faTag} rotation={90} /> { product.price } Ksh</h3>
+              <div className={styles.buttonCont2}>
+                <button onClick={()=>addProduct(product._id)}><span>Add to Cart <FontAwesomeIcon icon={faCartPlus}/></span></button>
+              </div>
+            </div>
           </div>
+          
         </div>
    
     </>

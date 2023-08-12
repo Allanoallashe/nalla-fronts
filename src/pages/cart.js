@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 import CartCard from "@/components/cartCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
+import  { Toaster } from 'react-hot-toast';
 
 
 const heading = {
@@ -92,6 +93,7 @@ export default function CartPage() {
   return (
     <>
       <Header />
+      <Toaster/>
       <h3 className={styles.h3Cart}>Cart</h3>
       {!cartProducts?.length && (
         <h3 className={styles.h3Cart}style={{margin:0,marginBottom:16,}}>Your cart is Empty!</h3>

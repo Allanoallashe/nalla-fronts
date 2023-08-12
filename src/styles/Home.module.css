@@ -42,7 +42,7 @@
 .productBox img{
   height: 230px;
 }
-.buttonCont{
+.buttonCont,.buttonCont2{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,7 +50,8 @@
   height: max-content;
   width: max-content;
 }
-.buttonCont button{
+
+.buttonCont button,.buttonCont2 button{
   height: 36px;
   border: none;
   border-radius: 4px;
@@ -62,7 +63,14 @@
    color: #2d0080;
   transition: all 0.25s ease-in-out;
 }
-.buttonCont button::after{
+.buttonCont2 button{
+  height: 42px;
+  width: 150px;
+  background-color: #00009d;
+  color: #fff;
+}
+
+.buttonCont button::after,.buttonCont2 button::after{
   width: 0;
   height: 100%;
   top: 0;
@@ -73,14 +81,17 @@
   content: '';
   position: absolute;
 }
-.buttonCont button:hover:after{
+.buttonCont2 button::after{
+  background-color: #e18700; 
+}
+.buttonCont button:hover:after,.buttonCont2 button:hover:after{
   width: 100%;
 }
-.buttonCont button >span{
+.buttonCont button >span,.buttonCont2 button >span{
   z-index: 5;
   position: relative;
 }
-.buttonCont button:hover{
+.buttonCont button:hover,.buttonCont2 button:hover{
   color: #FFF7FF;
 }
 
@@ -195,6 +206,7 @@
 .descriptions{
   display: flex;
   padding: 10px;
+  gap: 16px;
   flex-direction: column;
   align-items: center;
   justify-content: center;

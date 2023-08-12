@@ -52,7 +52,7 @@ const Header = () => {
       <Link className={''} style={linkStyles} href={''}>Ecommerce</Link>
       <nav>
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>
-        <Link style={linkStyles} href={'/products'}>All Products</Link>
+        <Link style={pathname.includes('/products')? activePage : linkStyles} href={'/products'}>All Products</Link>
         <Link style={linkStyles} href={'/categories'}>Categories</Link>
         <Link style={linkStyles} href={'/account'}>Account</Link>
         <Link
