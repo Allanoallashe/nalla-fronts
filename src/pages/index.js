@@ -7,12 +7,12 @@ import { Toaster } from "react-hot-toast"
 import ReactCarousel from "@/components/Carousel"
 
  
-const Home = ({ featuredProduct, newProducts }) => {
+const Home = ({ featuredProduct, newProducts,sliderImage }) => {
   return (
     <div>
       <Header />
       <Toaster />
-      <ReactCarousel images={newProducts} />
+      <ReactCarousel images={sliderImage} />
       <Featured  featuredProduct={featuredProduct} />
       <NewProducts newProducts= {newProducts} />
      </div>
@@ -22,12 +22,14 @@ const Home = ({ featuredProduct, newProducts }) => {
   export async function getServerSideProps(){
     await mongooseConnection()
     const featuredProductId = '64b06d6f34a44712c93304f0'
-    const newProducts = await Product.find({}, null, { sort: { '_id': -1 }, limit: 10})
+    const newProducts = await Product.find({}, null, { sort: { '_id': -1 }, limit: 10 })
+    const sliderImage = (await Product.find({}, null,)).slice(5,15)
     const featuredProduct = await Product.findById(featuredProductId)
     return {
       props: {
         featuredProduct: await JSON.parse(JSON.stringify(featuredProduct)),
         newProducts: await JSON.parse(JSON.stringify(newProducts)),
+        sliderImage: await JSON.parse(JSON.stringify(sliderImage)),
       }
     }
   }
