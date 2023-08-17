@@ -7,6 +7,7 @@ import CartCard from "@/components/cartCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import  { Toaster } from 'react-hot-toast';
+import {Confetti} from "@/components/Confetti";
 
 
 const heading = {
@@ -56,6 +57,7 @@ export default function CartPage() {
   useEffect(() => {
     if (window.location.href.includes('success')) {
     setProducts([])
+    Confetti()
     setSuccessful(true)
     clearCart()
   }
