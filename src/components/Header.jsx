@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.css'
 import { useContext, useState } from "react"
 import { CartContext } from "./CartContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {  faCartShopping } from "@fortawesome/free-solid-svg-icons"
+import {  faBars, faCartShopping, faHamburger, faSearch, faShoppingCart,} from "@fortawesome/free-solid-svg-icons"
 import { useRouter } from "next/router"
 
 const linkStyles = {
@@ -46,15 +46,25 @@ const Header = () => {
   const router = useRouter()
   const {pathname} = router
   
+  
 
   return (
     <header className={styles.header}>
-      <Link className={''} style={linkStyles} href={''}>Ecommerce</Link>
-      <nav>
+      <Link className={''} style={linkStyles} href={''}>
+        <FontAwesomeIcon icon={faBars} style={{marginRight:4,}} />
+        NALLA</Link>
+      <div className="search-box">
+        <input type="search" placeholder="search products" />
+        <FontAwesomeIcon icon={faSearch} />
+      </div>
+      <nav id="nav">
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>
         <Link style={pathname.includes('/products')? activePage : linkStyles} href={'/products'}>All Products</Link>
         <Link style={linkStyles} href={'/categories'}>Categories</Link>
         <Link style={linkStyles} href={'/account'}>Account</Link>
+       
+      </nav>
+      <div className="toggle-cart">
         <Link
           style={ pathname === '/cart'? activeCart : {
             position: 'relative',
@@ -67,7 +77,7 @@ const Header = () => {
             {cartProducts.length}
           </span>
         </Link>
-      </nav>
+      </div>
     </header>
   )
 }

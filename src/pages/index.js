@@ -12,8 +12,10 @@ const Home = ({ featuredProduct, newProducts,sliderImage }) => {
     <div>
       <Header />
       <Toaster />
-      <ReactCarousel images={sliderImage} />
-      <Featured  featuredProduct={featuredProduct} />
+      <div className="banner">
+        <Featured featuredProduct={featuredProduct} />
+        <ReactCarousel images={sliderImage} />
+      </div>
       <NewProducts newProducts= {newProducts} />
      </div>
    )
