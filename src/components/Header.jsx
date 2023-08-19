@@ -54,8 +54,10 @@ const Header = () => {
         <FontAwesomeIcon icon={faBars} style={{marginRight:4,}} />
         NALLA</Link>
       <div className="search-box">
-        <input type="search" placeholder="search products" />
-        <FontAwesomeIcon icon={faSearch} />
+        <input className="search" type="search" placeholder="search products" />
+        <div className="search-icon">
+          <FontAwesomeIcon   icon={faSearch} />
+        </div>
       </div>
       <nav id="nav">
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>
