@@ -3,8 +3,10 @@ import styles from '@/styles/Home.module.css'
 import { useContext, useState } from "react"
 import { CartContext } from "./CartContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {  faBars, faCartShopping, faHamburger, faSearch, faShoppingCart,} from "@fortawesome/free-solid-svg-icons"
+import {  faBars, faCartShopping, faSearch,} from "@fortawesome/free-solid-svg-icons"
 import { useRouter } from "next/router"
+import { mongooseConnection } from "../../lib/mongoose"
+import { Product } from "../../models/Product"
 
 const linkStyles = {
     color:'#fff',
@@ -44,7 +46,14 @@ const Header = () => {
 
   const { cartProducts } = useContext(CartContext)
   const router = useRouter()
-  const {pathname} = router
+  const { pathname } = router
+  const [search, setSearch] = useState('')
+
+
+  const handleSearch = async () => {
+    if(search !== '')
+    console.log({search})
+  }
   
   
 
@@ -54,9 +63,13 @@ const Header = () => {
         <FontAwesomeIcon icon={faBars} style={{marginRight:4,}} />
         NALLA</Link>
       <div className="search-box">
-        <input className="search" type="search" placeholder="search products" />
+        <input
+          className="search"
+          type="search" placeholder="search products"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)} />
         <div className="search-icon">
-          <FontAwesomeIcon   icon={faSearch} />
+          <FontAwesomeIcon onClick={handleSearch}   icon={faSearch} />
         </div>
       </div>
       <nav id="nav">
@@ -83,5 +96,7 @@ const Header = () => {
     </header>
   )
 }
+
+
 
 export default Header
