@@ -50,10 +50,27 @@ const Header = () => {
   const [search, setSearch] = useState('')
 
 
-  const handleSearch = async () => {
-    if(search !== '')
-    console.log({search})
+  const handleSearch = (ev) => {
+    if (ev.key === 'Enter') {
+      searchTrigger(ev.target.value.trim())
+    }
   }
+
+  const handleButtonSearch = () => {
+    searchTrigger(search)
+  }
+  const searchTrigger = async(search) => {
+    if (search !== '' ) {
+      try {
+        const response = await fetch(`/api/search?query=${search}`)
+        const searchResults = await response.json()
+        console.log({searchResults})
+      } catch (err) {
+        console.error({err})
+      }
+    }
+  }
+  
   
   
 
@@ -67,9 +84,10 @@ const Header = () => {
           className="search"
           type="search" placeholder="search products"
           value={search}
+          onKeyDown={handleSearch}
           onChange={(e) => setSearch(e.target.value)} />
         <div className="search-icon">
-          <FontAwesomeIcon onClick={handleSearch}   icon={faSearch} />
+          <FontAwesomeIcon onClick={handleButtonSearch}   icon={faSearch} />
         </div>
       </div>
       <nav id="nav">
