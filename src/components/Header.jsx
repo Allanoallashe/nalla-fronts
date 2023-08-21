@@ -1,12 +1,10 @@
 import Link from "next/link"
 import styles from '@/styles/Home.module.css'
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CartContext } from "./CartContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {  faBars, faCartShopping, faSearch,} from "@fortawesome/free-solid-svg-icons"
 import { useRouter } from "next/router"
-import { mongooseConnection } from "../../lib/mongoose"
-import { Product } from "../../models/Product"
 
 const linkStyles = {
     color:'#fff',
@@ -47,12 +45,28 @@ const Header = () => {
   const { cartProducts } = useContext(CartContext)
   const router = useRouter()
   const { pathname } = router
+
   const [search, setSearch] = useState('')
+  const [autoComplete, setAutoComplete] = useState([])
+  
+  const fetchAutoCompleteOptions = async (query) => {
+    if (query !== '') {
+      try {
+        const response = await fetch(`/api/autocomplete?query=${query}`)
+        const options = await response.json()
+          setAutoComplete(options)
+      } catch (err) {
+        console.error({ err })
+      }
+    } else {
+      setAutoComplete([])
+    }
+  }
 
 
   const handleSearch = (ev) => {
     if (ev.key === 'Enter') {
-      searchTrigger(ev.target.value.trim())
+      searchTrigger(search)
     }
   }
 
@@ -70,6 +84,21 @@ const Header = () => {
       }
     }
   }
+
+  const handleInputChange = (ev) => {
+    const value = ev.target.value
+    setSearch(value)
+    fetchAutoCompleteOptions(value)
+  }
+
+  const handleOptionClick = (option) => {
+    setSearch(option)
+    setAutoComplete([])
+  }
+
+  useEffect(() => {
+    fetchAutoCompleteOptions(search)
+  },[search])
   
   
   
@@ -85,10 +114,20 @@ const Header = () => {
           type="search" placeholder="search products"
           value={search}
           onKeyDown={handleSearch}
-          onChange={(e) => setSearch(e.target.value)} />
+          onChange={handleInputChange}
+          list="auto-options"
+        />
         <div className="search-icon">
           <FontAwesomeIcon onClick={handleButtonSearch}   icon={faSearch} />
         </div>
+        <datalist id="auto-options">
+          {autoComplete.map((option) =>(
+            <option
+              key={option}
+              value={option}
+              onClick={() => handleOptionClick(option)} />
+          ))}
+        </datalist>
       </div>
       <nav id="nav">
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>
