@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import { mongooseConnection } from "../../../lib/mongoose";
-import { Product } from "../../../models/Product";
 import SingleProduct from "@/components/SingleProduct";
 import { Toaster } from "react-hot-toast";
+import Product from "../../../models/Product";
 
 export default function ProductPage({ product }) {
   

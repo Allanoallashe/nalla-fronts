@@ -41,7 +41,7 @@ const activeCart = {
               position:'relative',
   }
 
-const Header = ({setSearchedResults}) => {
+const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
   const { cartProducts } = useContext(CartContext)
   const router = useRouter()
@@ -66,7 +66,7 @@ const Header = ({setSearchedResults}) => {
         }
 
         const options = await response.json()
-        
+
         const sortedOptions = options.sort((a, b) => {
           const lowerCaseValue = value.toLowerCase()
           const lowerCaseA = a.toLowerCase()
@@ -93,12 +93,18 @@ const Header = ({setSearchedResults}) => {
 
   const handleSearch = (ev) => {
     if (ev.key === 'Enter') {
-      searchTrigger(search)
+      trigger(search)
+      searchTrigger()
+      setAutoComplete([])
+      setSearch('')
     }
   }
 
   const handleButtonSearch = () => {
-    searchTrigger(search)
+    trigger(search)
+    searchTrigger()
+    setAutoComplete([])
+    setSearch('')
   }
   const searchTrigger = async(search) => {
     if (search !== '' ) {
@@ -106,8 +112,10 @@ const Header = ({setSearchedResults}) => {
         const response = await fetch(`/api/search?query=${search}`)
 
         const results = await response.json()
-        console.log({results})
         setSearchedResults(results)
+
+        
+
       } catch (err) {
         console.error({err})
       }
@@ -122,7 +130,11 @@ const Header = ({setSearchedResults}) => {
 
   const handleOptionClick = (option) => {
     setSearch(option)
+    searchTrigger(option)
     setAutoComplete([])
+    if (search === option) {
+       setAutoComplete([])
+    }
   }
 
   useEffect(() => {

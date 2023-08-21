@@ -5,24 +5,39 @@ import NewProducts from "@/components/NewProducts"
 import { Toaster } from "react-hot-toast"
 import ReactCarousel from "@/components/Carousel"
 import Product from "../../models/Product"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import SearchResults from "@/components/SearchResults"
 
  
 const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
   
   const [searchedResults, setSearchedResults] = useState([])
+  const searchRef = useRef(null)
+   const searchTrigger = async (search) => {
+    if (search !== '') {
+      try {
+        const response = await fetch(`/api/search?query=${search}`);
+        const results = await response.json();
+        setSearchedResults(results);
+
+        // Scroll to the search results
+        searchRef.current.scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        console.error({ err });
+      }
+    }
+  };
   
 
   return (
     <div>
-      <Header setSearchedResults={setSearchedResults} />
+      <Header setSearchedResults={setSearchedResults} searchTrigger={ searchTrigger} />
       <Toaster />
       <div className="banner">
         <Featured featuredProduct={featuredProduct} />
         <ReactCarousel images={sliderImage} />
       </div>
-      <div>
+      <div ref={searchRef}>
         <SearchResults searchedResults={searchedResults} />
       </div>
       <NewProducts newProducts= {newProducts} />
