@@ -5,16 +5,25 @@ import NewProducts from "@/components/NewProducts"
 import { Toaster } from "react-hot-toast"
 import ReactCarousel from "@/components/Carousel"
 import Product from "../../models/Product"
+import { useState } from "react"
+import SearchResults from "@/components/SearchResults"
 
  
-const Home = ({ featuredProduct, newProducts,sliderImage }) => {
+const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
+  
+  const [searchedResults, setSearchedResults] = useState([])
+  
+
   return (
     <div>
-      <Header />
+      <Header setSearchedResults={setSearchedResults} />
       <Toaster />
       <div className="banner">
         <Featured featuredProduct={featuredProduct} />
         <ReactCarousel images={sliderImage} />
+      </div>
+      <div>
+        <SearchResults searchedResults={searchedResults} />
       </div>
       <NewProducts newProducts= {newProducts} />
      </div>

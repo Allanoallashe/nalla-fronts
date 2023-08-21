@@ -19,12 +19,13 @@ export default async function handler(req, res) {
       ],
 
 
-    })
+    }).select({})
+    const results = searchResults.map((product)=> product)
 
  
 
 
-    return res.status(200).json({ searchResults })
+    return res.status(200).json(results)
     
     
   } catch (err) {

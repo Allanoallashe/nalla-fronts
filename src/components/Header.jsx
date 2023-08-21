@@ -41,7 +41,7 @@ const activeCart = {
               position:'relative',
   }
 
-const Header = () => {
+const Header = ({setSearchedResults}) => {
 
   const { cartProducts } = useContext(CartContext)
   const router = useRouter()
@@ -53,7 +53,7 @@ const Header = () => {
   const fetchAutoCompleteOptions = async (value) => {
 
 
-    if (value) {
+    if (value !== '') {
       try {
         const response = await fetch(`/api/autocomplete?query=${value}`, {
           headers: {
@@ -62,11 +62,26 @@ const Header = () => {
         })
 
         if (!response.ok) {
-          console.error(`Network response error: ${response.status} - ${response.statusText}`)
+          console.error('Network response was not ok')
         }
 
         const options = await response.json()
-          setAutoComplete(options)
+        
+        const sortedOptions = options.sort((a, b) => {
+          const lowerCaseValue = value.toLowerCase()
+          const lowerCaseA = a.toLowerCase()
+          const lowerCaseB = b.toLowerCase()
+
+          if (lowerCaseA.startsWith(lowerCaseValue) && !lowerCaseB.startsWith(lowerCaseValue)) {
+            return -1
+          }
+          if (!lowerCaseA.startsWith(lowerCaseValue) && lowerCaseB.startsWith(lowerCaseValue)) {
+            return 1
+          }
+          return 0
+        })
+
+          setAutoComplete(sortedOptions)
       } catch (err) {
         console.error({ err })
       }
@@ -89,8 +104,10 @@ const Header = () => {
     if (search !== '' ) {
       try {
         const response = await fetch(`/api/search?query=${search}`)
-        const searchResults = await response.json()
-        console.log({searchResults})
+
+        const results = await response.json()
+        console.log({results})
+        setSearchedResults(results)
       } catch (err) {
         console.error({err})
       }
