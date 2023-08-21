@@ -42,7 +42,7 @@ const SearchResults = ({ searchedResults}) => {
       >
         {searchedResults?.length> 0 &&
           searchedResults.map((result) => (
-            <div>
+            <div key={result._id}>
               <div>
               <ProductBox
                 images={result.images}

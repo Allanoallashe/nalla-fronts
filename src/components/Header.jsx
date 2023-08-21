@@ -138,14 +138,14 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
   useEffect(() => {
     fetchAutoCompleteOptions(search)
-  },[search])
+  },[])
   
 
   useEffect(() => {
       if (pathname==='/' || pathname.includes('/home') || pathname=== '/products') {
       setSearchBox(true)
     }
- }, [''])
+ }, [])
   
   
 
