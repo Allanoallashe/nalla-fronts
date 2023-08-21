@@ -22,12 +22,10 @@ const justfierTwo = {
                   justifyContent:'space-between ',
 }
 
-const SearchResults = ({ searchedResults }) => {
+const SearchResults = ({ searchedResults}) => {
 
-  if ( !searchedResults?.length || searchedResults?.length < 1) {
-    return (
-      <h4 style={{textAlign:'center'}}>Not found</h4>
-    )
+  if (searchedResults?.length === 0) {
+    return
   }
 
   return (

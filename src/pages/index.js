@@ -12,6 +12,7 @@ import SearchResults from "@/components/SearchResults"
 const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
   const [searchedResults, setSearchedResults] = useState([])
   const searchRef = useRef(null)
+  
    const searchTrigger = async (search) => {
     if (search !== '') {
       try {
@@ -20,13 +21,19 @@ const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
         setSearchedResults(results);
 
         // Scroll to the search results
-        searchRef.current.scrollIntoView({ behavior: 'smooth' });
+        if (searchedResults?.length > 0) {
+          searchRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       } catch (err) {
         console.error({ err });
       }
     }
+     if (searchedResults?.length === 0) {
+       return; 
+     }
   };
   
+
   return (
     <div>
       <Header setSearchedResults={setSearchedResults} searchTrigger={ searchTrigger} />
@@ -37,7 +44,7 @@ const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
       </div>
       <div ref={searchRef}>
         
-          <SearchResults searchedResults={searchedResults} />
+          <SearchResults  searchedResults={searchedResults} />
         
       </div>
       <NewProducts newProducts= {newProducts} />

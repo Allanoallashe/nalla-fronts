@@ -49,6 +49,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
   const [search, setSearch] = useState('')
   const [autoComplete, setAutoComplete] = useState([])
+  const [searchBox,setSearchBox] = useState(false)
   
   const fetchAutoCompleteOptions = async (value) => {
 
@@ -92,19 +93,19 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
 
   const handleSearch = (ev) => {
-    if (ev.key === 'Enter') {
+    if (ev.key === 'Enter' && search.trim() !== '') {
       trigger(search)
-      searchTrigger()
       setAutoComplete([])
       setSearch('')
     }
   }
 
   const handleButtonSearch = () => {
-    trigger(search)
-    searchTrigger()
-    setAutoComplete([])
-    setSearch('')
+    if(search.trim() !== ''){
+      trigger(search)
+      setAutoComplete([])
+      setSearch('')
+    }
   }
   const searchTrigger = async(search) => {
     if (search !== '' ) {
@@ -131,6 +132,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
   const handleOptionClick = (option) => {
     setSearch(option)
+    searchTrigger(option)
     setAutoComplete([])
   }
 
@@ -138,6 +140,12 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
     fetchAutoCompleteOptions(search)
   },[search])
   
+
+  useEffect(() => {
+      if (pathname==='/' || pathname.includes('/home') || pathname=== '/products') {
+      setSearchBox(true)
+    }
+ }, [''])
   
   
 
@@ -146,6 +154,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
       <Link className={''} style={linkStyles} href={''}>
         <FontAwesomeIcon icon={faBars} style={{marginRight:4,}} />
         NALLA</Link>
+      { searchBox &&
       <div className="search-box">
         <input
           className="search"
@@ -161,7 +170,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
         {autoComplete?.length > 0 && (
           <AutoComplete options={autoComplete} handleOptionClick={handleOptionClick} />
         )}
-      </div>
+      </div>}
       <nav id="nav">
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>
         <Link style={pathname.includes('/products')? activePage : linkStyles} href={'/products'}>All Products</Link>
