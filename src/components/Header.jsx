@@ -5,6 +5,7 @@ import { CartContext } from "./CartContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {  faBars, faCartShopping, faSearch,} from "@fortawesome/free-solid-svg-icons"
 import { useRouter } from "next/router"
+import AutoComplete from "./AutoComplete"
 
 const linkStyles = {
     color:'#fff',
@@ -49,10 +50,21 @@ const Header = () => {
   const [search, setSearch] = useState('')
   const [autoComplete, setAutoComplete] = useState([])
   
-  const fetchAutoCompleteOptions = async (query) => {
-    if (query !== '') {
+  const fetchAutoCompleteOptions = async (value) => {
+
+
+    if (value) {
       try {
-        const response = await fetch(`/api/autocomplete?query=${query}`)
+        const response = await fetch(`/api/autocomplete?query=${value}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) {
+          console.error(`Network response error: ${response.status} - ${response.statusText}`)
+        }
+
         const options = await response.json()
           setAutoComplete(options)
       } catch (err) {
@@ -120,14 +132,9 @@ const Header = () => {
         <div className="search-icon">
           <FontAwesomeIcon onClick={handleButtonSearch}   icon={faSearch} />
         </div>
-        <datalist id="auto-options">
-          {autoComplete.map((option) =>(
-            <option
-              key={option}
-              value={option}
-              onClick={() => handleOptionClick(option)} />
-          ))}
-        </datalist>
+        {autoComplete?.length > 0 && (
+          <AutoComplete options={autoComplete} handleOptionClick={handleOptionClick} />
+        )}
       </div>
       <nav id="nav">
         <Link style={ pathname.includes('/') && pathname==='/' ?activePage :linkStyles} href={'/'}>Home</Link>

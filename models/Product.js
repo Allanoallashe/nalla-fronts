@@ -21,5 +21,3 @@ try {
 }
   
 export default Product
-
-//  export const Product = mongoose.models.Product || model('Product', ProductSchema)

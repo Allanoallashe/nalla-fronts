@@ -19,6 +19,7 @@ body{
 }
 .search-box{
   padding: 2px;
+  position:relative;
   display: flex;
   align-items: center;
 }
@@ -46,6 +47,41 @@ body{
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
+
+
+/* AutoCompleteDropdown.module.css */
+.dropdown {
+  position: absolute;
+  list-style: none;
+  color: #940499;
+  top: 36px;
+  right: 0;
+  left: 0;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.dropdown::-webkit-scrollbar{
+  display: none;
+}
+
+.option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #f5f5f5;
+}
+
+
+
 
 @media screen and (max-width:900px){
   #nav{
