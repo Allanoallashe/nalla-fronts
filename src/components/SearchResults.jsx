@@ -1,25 +1,46 @@
 import React from 'react'
 import ProductBox from './ProductBox'
 
+const justfierOne = {
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign:'center',
+                  gap: 40,
+                  overflowX:'auto',
+                  margin:'0 8px',
+                  paddingBottom:'16px',
+                  justifyContent:'center',
+}
+const justfierTwo = {
+                  display: 'flex',
+                  alignItems: 'center',
+                  textAlign:'center',
+                  gap: 30,
+                  overflowX:'auto',
+                  margin:'0 8px',
+                  paddingBottom:'16px',
+                  justifyContent:'space-between ',
+}
+
 const SearchResults = ({ searchedResults }) => {
+
+  if ( !searchedResults?.length || searchedResults?.length < 1) {
+    return (
+      <h4 style={{textAlign:'center'}}>Not found</h4>
+    )
+  }
 
   return (
     <div style={{
       backgroundColor: '#fff',
       padding:10,
     }}>
-      {searchedResults?.length > 0 && 
-              <h2 style={{ textAlign: 'center', }}>Search Results</h2>}
+      {searchedResults?.length > 0 &&
+        <h2 style={{ textAlign: 'center', }}>Search Results</h2>
+            }
       <div
-        style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  textAlign:'center',
-                  gap: 30,
-                  overflowX:'scroll',
-                  margin:'0 8px',
-                  justifyContent:'space-between',
-              }}
+        style={searchedResults?.length <= 4 ? justfierOne : justfierTwo}
+        className='scroll-searched'
       >
         {searchedResults?.length> 0 &&
           searchedResults.map((result) => (

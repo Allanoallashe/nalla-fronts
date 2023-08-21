@@ -120,6 +120,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
         console.error({err})
       }
     }
+    setAutoComplete([])
   }
 
   const handleInputChange = (ev) => {
@@ -130,11 +131,7 @@ const Header = ({setSearchedResults,searchTrigger:trigger}) => {
 
   const handleOptionClick = (option) => {
     setSearch(option)
-    searchTrigger(option)
     setAutoComplete([])
-    if (search === option) {
-       setAutoComplete([])
-    }
   }
 
   useEffect(() => {

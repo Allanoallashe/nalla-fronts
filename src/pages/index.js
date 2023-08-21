@@ -10,7 +10,6 @@ import SearchResults from "@/components/SearchResults"
 
  
 const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
-  
   const [searchedResults, setSearchedResults] = useState([])
   const searchRef = useRef(null)
    const searchTrigger = async (search) => {
@@ -28,7 +27,6 @@ const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
     }
   };
   
-
   return (
     <div>
       <Header setSearchedResults={setSearchedResults} searchTrigger={ searchTrigger} />
@@ -38,7 +36,9 @@ const Home = ({ featuredProduct, newProducts, sliderImage, }) => {
         <ReactCarousel images={sliderImage} />
       </div>
       <div ref={searchRef}>
-        <SearchResults searchedResults={searchedResults} />
+        
+          <SearchResults searchedResults={searchedResults} />
+        
       </div>
       <NewProducts newProducts= {newProducts} />
      </div>

@@ -89,6 +89,29 @@ input[type = 'search']::-webkit-search-cancel-button{
 }
 
 
+/* scroll  bar */
+
+   .scroll-searched::-webkit-scrollbar{
+  border-top: transparent solid 1px;
+  height: 12px;
+  border-bottom: transparent solid 1px;
+  }
+  .scroll-searched::-webkit-scrollbar-thumb{
+        background-image: linear-gradient(to right bottom, #fa0588, #f7009a, #f000ae, #e400c4, #d300da, #c400e4, #b200ef, #9b01fa, #8e00fa, #7f00fa, #6e02fa, #5b05fa);
+        border-radius: 10px;
+        resize: both;
+    }
+    .scroll-searched::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #7c0987; 
+        border-radius: 10px;
+        background: #f0f0f0;
+        border-top: 5px solid #ffffff00;
+        border-bottom: 5px solid #ffffff00;
+        background-clip: content-box;
+    }
+   
+
+
 
 
 
